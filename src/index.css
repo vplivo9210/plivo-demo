@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Idle bobbing animation */
+@keyframes bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.avatar-bob {
+  animation: bob 3s ease-in-out infinite;
+}
+
+/* Blink animation */
+@keyframes blink {
+  0%, 90%, 100% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0;
+  }
+}
+
+/* Subtle breathing */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.avatar-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Body part animations for mascot */
+@keyframes head-bob {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(1.5deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-3px);
+  }
+  75% {
+    transform: rotate(-1.5deg) translateY(-2px);
+  }
+}
+
+@keyframes torso-sway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes arm-wave-left {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes arm-wave-right {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes legs-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+/* Idle body part animations (subtle) */
+@keyframes idle-head-bob {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0.5deg) translateY(-1px);
+  }
+}
+
+@keyframes idle-arm-swing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+}
+
+.body-part-idle-head {
+  animation: idle-head-bob 4s ease-in-out infinite;
+}
+
+.body-part-idle-arm-left {
+  animation: idle-arm-swing 5s ease-in-out infinite;
+}
+
+.body-part-idle-arm-right {
+  animation: idle-arm-swing 5s ease-in-out infinite 0.5s;
+}
+
+/* Sprite Avatar Styles */
+.sprite-avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sprite-character {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  -webkit-image-rendering: pixelated;
+  /* CRITICAL: Prevent any CSS transitions that could cause interpolation */
+  transition: none !important;
+}
+
+/* Subtle unified animation - same for both states */
+.sprite-character.idle,
+.sprite-character.speaking {
+  animation: sprite-subtle-idle 4s ease-in-out infinite;
+}
+
+@keyframes sprite-subtle-idle {
+  0%, 100% {
+    transform: translateZ(0) translateY(0);
+  }
+  50% {
+    transform: translateZ(0) translateY(-1px);
+  }
+}
+
+/* Speaking glow effect - filter only, no transform changes */
+.sprite-character.speaking {
+  filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+}
